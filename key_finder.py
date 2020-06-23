@@ -42,7 +42,7 @@ key_names = [
 
 
 def uid(keyname, note):
-    return note+" "+keyname+str(random.randint(1, 2018))
+    return note+" "+keyname
 
 
 def note_picker(note_sequence, root_note):
