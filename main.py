@@ -18,7 +18,13 @@ def print_nested(val, nesting=-5):
 def chords_menu():
     # Get all the root notes
     o = input(
-        "Enter g for chords of given notes and k for chord in a given key and t for theory and f for finding name of chord :")
+        """Enter 
+        g for chords of given notes
+        k for chord in a given key 
+        t for theory
+        f for finding name of chord 
+        r for random chord progression generator :"""
+    )
 
     if o == "g":
         # get all the chords of a given note
@@ -77,6 +83,34 @@ def chords_menu():
             input("Enter the notes of the chord separated with commas : ").split(","))
         chord_names = chord_finder.find_chord(chord)
         print_nested(chord_names)
+
+    elif o == "r":
+        # recieve random chord progression of given key and no of chords
+        root_note = input(
+            "Enter root note of key :")
+        root_note = (root_note,)
+        keys = key_finder.generate_keys(root_note)
+        print()
+        print("ALL KEYS for {} : \n".format(root_note))
+        count = 1
+        for kname, knotes in keys[0].items():
+            print(count, kname, knotes)
+            count += 1
+
+        ok = int(input(
+            "Enter key number to get chords of that key :"))
+        no = int(input("Enter the number of chords you desire :"))
+
+        req_key = keys[0][key_finder.key_names[ok-1]]
+
+        want = True
+
+        while want == True:
+            generated_prog = chord_finder.r_p_g(req_key, no)
+            print_nested(generated_prog)
+            print()
+            want = bool(input(
+                "Enter anything for more chord progressions of the same scale, click enter to exit : "))
 
 
 def keys_menu():

@@ -5,6 +5,7 @@
 '''
 
 import key_finder
+import random
 
 
 notes = key_finder.notes
@@ -55,15 +56,13 @@ def make_chord(root_notes, ctype):
     '''
     global chord_seq, notes
 
-    if type(ctype) == str():
+    if type(ctype) == str:
         ctype = [ctype, ]
     else:
         ctype = list(ctype)
 
-    if type(root_notes) == str():
+    if type(root_notes) == str:
         root_notes = [root_notes, ]
-    else:
-        root_notes = list(root_notes)
 
     chord_strings = {}
 
@@ -107,6 +106,9 @@ def make_chord(root_notes, ctype):
 
 
 def chords_in_key(key):
+    '''
+    Returns dictionary of all the chords in a given key
+    '''
     compatible_chords = {}
     for note in key[0:6]:
         all_chords = make_chord(note, all_chord_types)
@@ -125,6 +127,9 @@ def chords_in_key(key):
 
 
 def find_chord(chord):
+    '''
+    Returns dictionary of all compatible chord names for the given notes 
+    '''
     compatible_chords = {}
     for note in chord:
         all_chords = make_chord(note, all_chord_types)
@@ -139,3 +144,17 @@ def find_chord(chord):
                 chord_name = key_finder.uid(cname, note)
                 compatible_chords[chord_name] = cnotes
     return compatible_chords
+
+
+def r_p_g(key, no):
+    '''
+    Returns a random chord progression of the given key and number of chords
+    '''
+    compatible_chords = chords_in_key(key)
+    # Will return randomly chosen keys of the compatible chords
+    generated_prog_keys = random.sample(list(compatible_chords.keys()), no)
+    prog = {}
+    for i in generated_prog_keys:
+        prog[i] = compatible_chords[i]
+
+    return prog
