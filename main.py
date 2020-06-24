@@ -1,7 +1,18 @@
 import chord_finder
 import key_finder
 import chord_theory
-import pprint
+
+
+def print_nested(val, nesting=-5):
+    if type(val) == dict:
+        print('')
+        nesting += 5
+        for k in val:
+            print(nesting * ' ', end='')
+            print(k, end=' : ')
+            print_nested(val[k], nesting)
+    else:
+        print(val)
 
 
 def chords_menu():
@@ -28,8 +39,7 @@ def chords_menu():
             ctypes.append(chord_finder.all_chord_types[c-1])
 
         chords = chord_finder.make_chord(root_notes, ctypes)
-        pp = pprint.PrettyPrinter(depth=6)
-        pp.pprint(chords)
+        print_nested(chords)
 
     elif o == "k":
         # get all the chords in the key of the given root note and key type
@@ -54,8 +64,7 @@ def chords_menu():
             keys[0][key_finder.key_names[ok-1]])
 
         print(keys[0][key_finder.key_names[ok-1]])
-        pp = pprint.PrettyPrinter(depth=6)
-        pp.pprint(chords)
+        print_nested(chords)
 
     elif o == "t":
         # display chord theory
@@ -67,21 +76,24 @@ def chords_menu():
         chord = tuple(
             input("Enter the notes of the chord separated with commas : ").split(","))
         chord_names = chord_finder.find_chord(chord)
-        pp = pprint.PrettyPrinter(depth=6)
-        pp.pprint(chord_names)
+        print_nested(chord_names)
 
 
 def keys_menu():
     root_notes = tuple(
         input("Enter root notes separated with commas : ").split(","))
-    print(root_notes)
     keys = key_finder.generate_keys(root_notes)
     print()
-    for i in range(len(root_notes)):
+    '''for i in range(len(root_notes)):
         print("ALL KEYS for {} : \n".format(root_notes[i]))
         for kname, knotes in keys[i].items():
             print(kname, knotes)
+        print()'''
+
+    for i in root_notes:
         print()
+        print("ALL KEYS FOR  :", i)
+        print_nested(keys[root_notes.index(i)])
 
 
 c = input("Enter k for key related functions and c for chord related functions :")
