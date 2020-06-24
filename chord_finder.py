@@ -40,16 +40,13 @@ chord_seq = {
     "Major Seventh": "1,3,5,7",
     "Minor Seventh": "1,2,5,6",
     "Dominant Seventh": "1,3,5,6",
+    "Half Diminished": "1,2,4,6",
     "Suspended2": "1,2-,5",
     "Suspended4": "1,3+,5",
     "Augmented": "1,3,6",
 }
 
 all_chord_types = [i for i in chord_seq.keys()]
-
-
-def chords_theory():
-    pass
 
 
 def make_chord(root_notes, ctype):

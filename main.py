@@ -1,11 +1,13 @@
 import chord_finder
 import key_finder
+import chord_theory
 import pprint
 
 
 def chords_menu():
     # Get all the root notes
-    o = input("Enter g for chords of given notes and k for chord in a given key :")
+    o = input(
+        "Enter g for chords of given notes and k for chord in a given key and t for theory :")
     if o == "g":
         root_notes = tuple(
             input("Enter root notes separated with commas : ").split(","))
@@ -51,6 +53,9 @@ def chords_menu():
         print(keys[0][key_finder.key_names[ok-1]])
         pp = pprint.PrettyPrinter(depth=6)
         pp.pprint(chords)
+    elif o == "t":
+        theory = chord_theory.chords_theory()
+        print(theory)
 
 
 def keys_menu():
