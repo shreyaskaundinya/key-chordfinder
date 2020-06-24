@@ -122,3 +122,20 @@ def chords_in_key(key):
                 chord_name = key_finder.uid(cname, note)
                 compatible_chords[chord_name] = cnotes
     return compatible_chords
+
+
+def find_chord(chord):
+    compatible_chords = {}
+    for note in chord:
+        all_chords = make_chord(note, all_chord_types)
+        for cname, cnotes in all_chords[note].items():
+            b = 0
+            for n in cnotes:
+                if n in chord:
+                    b += 0
+                else:
+                    b += 1
+            if b == 0:
+                chord_name = key_finder.uid(cname, note)
+                compatible_chords[chord_name] = cnotes
+    return compatible_chords
